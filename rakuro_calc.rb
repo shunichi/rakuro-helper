@@ -115,10 +115,11 @@ night_min_sum = time_spans.sum(&:night_minutes)
 nd_night_min_sum = time_spans.sum(&:nextday_night_minutes)
 
 puts "\n## 集計結果"
-puts "始業時間    : #{time_spans.first.begin_time_str}"
-puts "終業時間    : #{time_spans.last.end_time_str}"
 puts "日中        : #{TimeSpan.min_to_str(day_min_sum)}"
 puts "深夜        : #{TimeSpan.min_to_str(night_min_sum)}"
 puts "翌日深夜    : #{TimeSpan.min_to_str(nd_night_min_sum)}"
 puts "労働時間合計: #{TimeSpan.min_to_str(work_min_sum)}"
+puts ""
+puts "始業時間    : #{time_spans.first.begin_time_str}"
+puts "終業時間    : #{time_spans.last.end_time_str}"
 puts "休憩時間合計: #{TimeSpan.min_to_str(rest_min_sum)}"
