@@ -1,1 +1,4 @@
 test_data/
+node_modules
+.parcel-cache
+chrome-extension/dist

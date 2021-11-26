@@ -1,0 +1,11 @@
+table.rakuro-helper-table {
+  border: 1px solid #e0e0e0;
+  background: white;
+  color: black;
+  border-collapse: collapse;
+}
+
+table.rakuro-helper-table td, table.rakuro-helper-table th {
+  border: 1px solid #e0e0e0;
+  padding: 8px;
+}
