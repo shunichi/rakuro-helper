@@ -4,36 +4,47 @@ import { ExtractedTimelineItem, TimelineData } from './timeline_types';
 import { extractTimeline } from "./exractor";
 import Timelines from './Timelines';
 
-function createRootElement(): HTMLElement {
+function rootElement(): HTMLElement {
   const root = document.getElementById("rakuro-helper-root")
   if (root) return root;
 
   const div = document.createElement("div");
-  div.style.position = "absolute";
-  div.style.zIndex = "1000";
-  div.style.top = "32px";
-  div.style.left = "32px";
-  // div.style.background = "white";
-  // div.style.color = "black";
-  // div.style.padding = "16px";
-  // div.innerText = "Hello!"
   div.id = "rakuro-helper-root";
   document.body.appendChild(div);
   return div;
 }
 
+let opened = false;
+let rendered = false;
 function openDialog(timelineItems: ExtractedTimelineItem[]) {
-  ReactDOM.render(
-    <Timelines timelineItems={timelineItems} />,
-    createRootElement()
-  );
+  const root = rootElement();
+  root.style.display = "block";
+  if (!rendered) {
+    ReactDOM.render(
+      <Timelines timelineItems={timelineItems} onClose={closeDialog} />,
+      root,
+    );
+    rendered = true;
+  }
+  opened = true;
+}
+
+function closeDialog() {
+  const root = rootElement();
+  root.style.display = "none";
+  opened = false;
 }
 
 chrome.runtime.onMessage.addListener((message, messageSender, sendResponse) => {
   if (message.type == 'extract') {
-    const timelineItems = extractTimeline() || [];
-    openDialog(timelineItems);
-    sendResponse({ timelineItems });
+    if (opened) {
+      closeDialog();
+    } else {
+      const timelineItems = extractTimeline() || [];
+      if (timelineItems.length == 0) return;
+      openDialog(timelineItems);
+    }
+    // sendResponse({ timelineItems });
   }
 })
 

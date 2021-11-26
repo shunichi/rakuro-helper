@@ -1,3 +1,27 @@
+#rakuro-helper-root {
+  z-index: 1080;
+  position: fixed;
+  top: 16px;
+  right: 16px;
+  max-height: 80vh;
+  background: white;
+  color: black;
+  border: 1px solid black;
+  border-radius: 3px;
+  padding: 16px;
+}
+
+.rakuro-helper-modal-body {
+  max-height: calc(80vh - 80px);
+  display: flex;
+  overflow-y: auto;
+}
+
+.rakuro-helper-modal-header {
+  margin-bottom: 12px;
+  border-bottom: 1px solid #e0e0e0;
+}
+
 table.rakuro-helper-table {
   border: 1px solid #e0e0e0;
   background: white;
@@ -8,4 +32,18 @@ table.rakuro-helper-table {
 table.rakuro-helper-table td, table.rakuro-helper-table th {
   border: 1px solid #e0e0e0;
   padding: 8px;
+}
+
+.rakuro-helper-close-button {
+  padding: 8px;
+  font-size: 18px;
+  color: black;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.rakuro-helper-close-button:hover, .rakuro-helper-close-button:active {
+  color: black;
+  text-decoration: none;
+  background: #e0e0e0;
 }

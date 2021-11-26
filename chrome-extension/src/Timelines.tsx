@@ -4,9 +4,10 @@ import TimeRanges from './TimeRanges';
 
 type Props = {
   timelineItems: ExtractedTimelineItem[],
+  onClose: () => void,
 };
 
-const Timelines = ({ timelineItems }: Props) => {
+const Timelines = ({ timelineItems, onClose }: Props) => {
   const [selected, setSelected] = React.useState<string | null>(null);
 
   if (timelineItems.length === 0) {
@@ -15,37 +16,36 @@ const Timelines = ({ timelineItems }: Props) => {
 
   const selectedItem = selected ? timelineItems.find((v) => v.date == selected) : undefined;
 
-  const style = {
-    display: "flex",
-    padding: "16px",
-    background: "white",
-    color: "black",
-    border: "1px solid black",
-    borderRadius: "3px",
-  };
-  return <div style={style}>
-    <table className="rakuro-helper-table">
-      <thead>
-        <tr>
-          <th>日付</th>
-          <th>記録</th>
-          <th></th>
-        </tr>
-      </thead>
-      <tbody>
-        { timelineItems.map((item) =>
+  return <div>
+    <div className="rakuro-helper-modal-header">
+      <div style={{ textAlign: "right" }}>
+        <a className="rakuro-helper-close-button" onClick={(e) => {e.preventDefault(); onClose()}}>✕</a>
+      </div>
+    </div>
+    <div className="rakuro-helper-modal-body">
+      <table className="rakuro-helper-table">
+        <thead>
           <tr>
-            <th>{item.date}</th>
-            <td>{item.items.length}</td>
-            <td>
-              <button onClick={() => setSelected(item.date)}>選択</button>
-            </td>
+            <th>日付</th>
+            <th>記録</th>
+            <th></th>
           </tr>
-        )}
-      </tbody>
-    </table>
-    <div>
-      {selectedItem && <TimeRanges item={selectedItem} />}
+        </thead>
+        <tbody>
+          { timelineItems.map((item) =>
+            <tr>
+              <th>{item.date}</th>
+              <td>{item.items.length}</td>
+              <td>
+                <button onClick={() => setSelected(item.date)}>選択</button>
+              </td>
+            </tr>
+          )}
+        </tbody>
+      </table>
+      <div>
+        {selectedItem && <TimeRanges item={selectedItem} key={selectedItem.date} />}
+      </div>
     </div>
   </div>;
 }
