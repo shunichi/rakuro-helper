@@ -1,3 +1,4 @@
+import * as React from 'react';
 import * as ReactDOM from 'react-dom';
 import { ExtractedTimelineItem, TimelineData } from './timeline_types';
 import { extractTimeline } from "./exractor";

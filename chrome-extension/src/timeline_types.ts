@@ -28,5 +28,5 @@ export type TimelineData = {
 
 export type ExtractedTimelineItem = {
   date: string,
-  rangeItems: string[][],
+  items: EstimatedTimelineItem[],
 };

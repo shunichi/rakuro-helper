@@ -9,11 +9,10 @@ export function extractTimeline(): ExtractedTimelineItem[] {
   const timelineData = JSON.parse(json) as TimelineData;
   return timelineData.itemsByDate.map(dayItem => {
     const date = dayItem.date;
-    // const rangeItems = dayItem.items.workEventItems.filter(item => item.eventType === 'range').map((item => [item.startDateText, item.endDateText]))
-    const rangeItems = dayItem.items.estimatedTimelineItems?.map((item => [item.startDateText, item.endDateText])) || [];
+    const items = dayItem.items.estimatedTimelineItems || [];
     return {
       date,
-      rangeItems,
+      items,
     };
   });
 }
