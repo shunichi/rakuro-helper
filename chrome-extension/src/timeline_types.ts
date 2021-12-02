@@ -22,6 +22,8 @@ export type DateItem = {
   items: DateItemSubItems,
 };
 
+export type ItemsByDate = Record<string, DateItem>;
+
 export type TimelineData = {
   itemsByDate: DateItem[]
 };
