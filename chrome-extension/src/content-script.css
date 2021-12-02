@@ -45,6 +45,10 @@ table.rakuro-helper-table td, table.rakuro-helper-table th {
   padding: 8px;
 }
 
+table.rakuro-helper-table td {
+  text-align: right;
+}
+
 .rakuro-helper-close-button {
   padding: 8px;
   font-size: 18px;

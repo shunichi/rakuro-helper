@@ -8,7 +8,7 @@ type Props = {
 };
 
 const Timelines = ({ timelineItems, onClose }: Props) => {
-  const [selected, setSelected] = React.useState<string | null>(null);
+  const [selected, setSelected] = React.useState<string | null>(timelineItems[0]?.date);
 
   if (timelineItems.length === 0) {
     return <div>まだないよ</div>;
