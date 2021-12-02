@@ -85,12 +85,13 @@ const TimeRanges = (props: Props) => {
 
   const statistics = calcStatistics(timeSpans, checkedArray);
 
-  return <div style={{ margin: "12px"}}>
-    <div style={{ fontWeight: "bold"}}>{props.item.date}</div>
-    <div style={{ margin: "12px 0" }}>
+  return <div className="rakuro-helper-scroll-container">
+    <div className="rakuro-helper-statistics">
+      {statistics && <TimeStatistics statistics={statistics} /> }
+    </div>
+    <div className="rakuro-helper-checkboxes-area">
       {items.map((item, index) => <TimeRangeItem key={item.id} item={item} checked={checkedArray[index]} onChange={(event) => updateChecked(index, event.target.checked)}></TimeRangeItem>)}
     </div>
-    {statistics && <TimeStatistics statistics={statistics} /> }
   </div>
 }
 export default TimeRanges;

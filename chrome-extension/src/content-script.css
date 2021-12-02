@@ -11,10 +11,21 @@
   padding: 16px;
 }
 
-.rakuro-helper-modal-body {
-  max-height: calc(80vh - 80px);
+.rakuro-helper-scroll-container {
+  margin: 12px 0;
+  max-height: calc(80vh - 120px);
   display: flex;
   overflow-y: auto;
+}
+
+.rakuro-helper-statistics {
+  position: sticky;
+  top: 0;
+  align-self: flex-start;
+}
+
+.rakuro-helper-checkboxes-area {
+  margin: 0 12px;
 }
 
 .rakuro-helper-modal-header {

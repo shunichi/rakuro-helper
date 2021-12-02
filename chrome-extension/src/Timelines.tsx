@@ -22,30 +22,15 @@ const Timelines = ({ timelineItems, onClose }: Props) => {
         <a className="rakuro-helper-close-button" onClick={(e) => {e.preventDefault(); onClose()}}>✕</a>
       </div>
     </div>
+    <select onChange={(event) => setSelected(event.target.value)}>
+        { timelineItems.map((item) =>
+            <option value={item.date}>
+              {item.date} ({item.items.length})
+            </option>
+        )}
+    </select>
     <div className="rakuro-helper-modal-body">
-      <table className="rakuro-helper-table">
-        <thead>
-          <tr>
-            <th>日付</th>
-            <th>記録</th>
-            <th></th>
-          </tr>
-        </thead>
-        <tbody>
-          { timelineItems.map((item) =>
-            <tr>
-              <th>{item.date}</th>
-              <td>{item.items.length}</td>
-              <td>
-                <button onClick={() => setSelected(item.date)}>選択</button>
-              </td>
-            </tr>
-          )}
-        </tbody>
-      </table>
-      <div>
-        {selectedItem && <TimeRanges item={selectedItem} key={selectedItem.date} />}
-      </div>
+      {selectedItem && <TimeRanges item={selectedItem} key={selectedItem.date} />}
     </div>
   </div>;
 }
