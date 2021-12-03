@@ -10,7 +10,12 @@
         "inlineSources": true
       }
     },
-    "webext-prod": {}
+    "webext-prod": {
+      "sourceMap": {
+        "inline": true,
+        "inlineSources": true
+      }
+    }
   },
   "dependencies": {
     "date-fns": "^2.27.0",
@@ -28,7 +33,7 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "parcel src/manifest.json --host localhost --target webext-dev --config @parcel/config-webextension",
-    "build": "parcel build src/manifest.json --target webext-prod --config @parcel/config-webextension"
+    "build": "tsc --noEmit && parcel build src/manifest.json --target webext-prod --config @parcel/config-webextension"
   },
   "author": "",
   "license": "ISC"

@@ -6,6 +6,8 @@ import type { TimeSpanStatistics } from '../../logic/WorkingTime';
 
 type Props = {
   item: ExtractedTimelineItem,
+  checkedStates: boolean[],
+  onCheckedChanged: (index: number, checked: boolean) => void,
 };
 
 type TimeRangeProps = {
@@ -74,23 +76,17 @@ const TimeStatistics = ({ statistics }: { statistics: TimeSpanStatistics }) => {
   </div>
 }
 
-const TimeRanges = (props: Props) => {
-  const items = props.item.items
+const TimeRanges = ({ item, checkedStates, onCheckedChanged }: Props) => {
+  const items = item.items;
   const timeSpans = items.map((item) => new TimeSpan(item.startDateText, item.endDateText));
-  const [checkedArray, setCheckedArray] = React.useState<boolean[]>(timeSpans.map(() => true))
-
-  const updateChecked = (index: number, checked: boolean) => {
-    setCheckedArray((prevCheckedArray) => [...prevCheckedArray.slice(0, index), checked, ...prevCheckedArray.slice(index + 1)]);
-  };
-
-  const statistics = calcStatistics(timeSpans, checkedArray);
+  const statistics = calcStatistics(timeSpans, checkedStates);
 
   return <div className="rakuro-helper-scroll-container">
     <div className="rakuro-helper-statistics">
       {statistics && <TimeStatistics statistics={statistics} /> }
     </div>
     <div className="rakuro-helper-checkboxes-area">
-      {items.map((item, index) => <TimeRangeItem key={item.id} item={item} checked={checkedArray[index]} onChange={(event) => updateChecked(index, event.target.checked)}></TimeRangeItem>)}
+      {items.map((item, index) => <TimeRangeItem key={item.id} item={item} checked={checkedStates[index]} onChange={(event) => onCheckedChanged(index, event.target.checked)}></TimeRangeItem>)}
     </div>
   </div>
 }

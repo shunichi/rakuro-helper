@@ -2,7 +2,7 @@ import * as React from 'react';
 import * as ReactDOM from 'react-dom';
 import { ExtractedTimelineItem, TimelineData } from './logic/TimelineTypes';
 import { extractTimeline } from "./logic/Exractor";
-import Timelines from './components/presentation/Timelines';
+import FixerDialog from './components/container/FixerDialog';
 
 function rootElement(): HTMLElement {
   const root = document.getElementById("rakuro-helper-root")
@@ -21,7 +21,7 @@ function openDialog(timelineItems: ExtractedTimelineItem[]) {
   root.style.display = "block";
   if (!rendered) {
     ReactDOM.render(
-      <Timelines timelineItems={timelineItems} onClose={closeDialog} />,
+      <FixerDialog timelineItems={timelineItems} onClose={closeDialog} />,
       root,
     );
     rendered = true;
