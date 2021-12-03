@@ -15,9 +15,25 @@ const initialCheckedStates = (date: string | null, length: number): boolean[] =>
   return Array(length).fill(true);
 };
 
+function padZero(s: string){
+  return `00${s}`.slice(-2);
+}
+
+const getModalDate = (year: string) => {
+  const text = document.querySelector<HTMLElement>('.modal-title')?.innerText;
+  if (text == null) return undefined;
+
+  const m = /(\d+)\/(\d+) 勤怠報告/.exec(text);
+  if (m == null) return undefined;
+  const month = padZero(m[1]);
+  const day = padZero(m[2]);
+  return `${year}-${month}-${day}`
+}
+
 const FixerDialog = ({ timelineItems, onClose }: Props) => {
   const [selectedDate, setSelectedDate] = React.useState<string | null>(timelineItems[0]?.date);
   const [checkedStates, setCheckedStates] = React.useState<boolean[]>(initialCheckedStates(selectedDate, findSelectedItem(timelineItems, selectedDate)?.items.length || 0));
+
   const onDateSelected = (date: string | null) => {
     setSelectedDate(date);
     if (date == null) return;
@@ -25,6 +41,13 @@ const FixerDialog = ({ timelineItems, onClose }: Props) => {
     if (selectedItem == null) return;
     setCheckedStates(initialCheckedStates(date, selectedItem.items.length))
   };
+  const onDateSync = () => {
+    const firstItem = timelineItems[0];
+    if (firstItem == null) return;
+    const date = getModalDate(firstItem.date.substr(0, 4));
+    if (date == null) return;
+    onDateSelected(date);
+  }
   const onCheckedChanged = (index: number, checked: boolean) => {
     setCheckedStates((prev) => prev.map((value, i) => i === index ? checked: value));
   };
@@ -43,6 +66,7 @@ const FixerDialog = ({ timelineItems, onClose }: Props) => {
     onDateSelected,
     onCheckedChanged,
     onFill,
+    onDateSync,
   };
   return (
     <Timelines {...props} />
