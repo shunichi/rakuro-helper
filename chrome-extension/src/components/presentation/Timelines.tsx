@@ -10,9 +10,10 @@ type Props = {
   onClose: () => void,
   onDateSelected: (date: string | null) => void,
   onCheckedChanged: (index: number, checked: boolean) => void,
+  onFill: () => void,
 };
 
-const Timelines = ({ timelineItems, selectedDate, checkedStates, onClose, onDateSelected, onCheckedChanged }: Props) => {
+const Timelines = ({ timelineItems, selectedDate, checkedStates, onClose, onDateSelected, onCheckedChanged, onFill }: Props) => {
   if (timelineItems.length === 0) {
     return <div>まだないよ</div>;
   }
@@ -25,13 +26,16 @@ const Timelines = ({ timelineItems, selectedDate, checkedStates, onClose, onDate
         <a className="rakuro-helper-close-button" onClick={(e) => {e.preventDefault(); onClose()}}>✕</a>
       </div>
     </div>
-    <select onChange={(event) => onDateSelected(event.target.value)}>
-        { timelineItems.map((item) =>
-            <option value={item.date} selected={item.date === selectedDate}>
-              {item.date} ({item.items.length})
-            </option>
-        )}
-    </select>
+    <div className="rakuro-helper-tools">
+      <select onChange={(event) => onDateSelected(event.target.value)}>
+          { timelineItems.map((item) =>
+              <option value={item.date} selected={item.date === selectedDate}>
+                {item.date} ({item.items.length})
+              </option>
+          )}
+      </select>
+      <button className="rakuro-helper-input-button" onClick={onFill}>入力</button>
+    </div>
     <div className="rakuro-helper-modal-body">
       {selectedItem && <TimeRanges item={selectedItem} key={selectedItem.date} checkedStates={checkedStates} onCheckedChanged={onCheckedChanged} />}
     </div>

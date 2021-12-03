@@ -1,7 +1,8 @@
 import * as React from 'react';
 import { ExtractedTimelineItem, EstimatedTimelineItem } from '../../logic/TimelineTypes';
 import { parseISO, format } from 'date-fns';
-import { TimeSpan, aggregateTimeSpans } from '../../logic/WorkingTime';
+import { calcStatistics } from '../../logic/WorkingTime';
+import { formatMinutes, formatTime } from '../../logic/WorkingTime';
 import type { TimeSpanStatistics } from '../../logic/WorkingTime';
 
 type Props = {
@@ -25,18 +26,6 @@ const TimeRangeItem = (props: TimeRangeProps) => {
       <span style={{ marginLeft: "4px" }}>{format(start, "HH:mm")} 〜 {format(end, "HH:mm")}</span>
     </label>
   </div>;
-}
-
-function calcStatistics(timeSpans: TimeSpan[], checkedArray: boolean[]): TimeSpanStatistics | undefined {
-  const filtered = timeSpans.filter((_, index) => checkedArray[index]);
-  return aggregateTimeSpans(filtered);
-}
-
-function formatMinutes(minutes: number) {
-  const h = Math.floor(minutes / 60);
-  const m = minutes % 60;
-  const mstr = `00${m}`.slice(-2)
-  return `${h.toString()}:${mstr}`;
 }
 
 const TimeStatistics = ({ statistics }: { statistics: TimeSpanStatistics }) => {
@@ -65,11 +54,11 @@ const TimeStatistics = ({ statistics }: { statistics: TimeSpanStatistics }) => {
         </tr>
         <tr>
           <th>始業時間</th>
-          <td>{format(statistics.workingStart, "HH:mm")}</td>
+          <td>{formatTime(statistics.workingStart)}</td>
         </tr>
         <tr>
           <th>終業時間</th>
-          <td>{format(statistics.workingEnd, "HH:mm")}</td>
+          <td>{formatTime(statistics.workingEnd)}</td>
         </tr>
       </tbody>
     </table>
@@ -78,8 +67,7 @@ const TimeStatistics = ({ statistics }: { statistics: TimeSpanStatistics }) => {
 
 const TimeRanges = ({ item, checkedStates, onCheckedChanged }: Props) => {
   const items = item.items;
-  const timeSpans = items.map((item) => new TimeSpan(item.startDateText, item.endDateText));
-  const statistics = calcStatistics(timeSpans, checkedStates);
+  const statistics = calcStatistics(items, checkedStates);
 
   return <div className="rakuro-helper-scroll-container">
     <div className="rakuro-helper-statistics">

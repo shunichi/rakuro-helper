@@ -1,4 +1,5 @@
-import { parseISO, differenceInMinutes } from 'date-fns';
+import { parseISO, differenceInMinutes, format } from 'date-fns';
+import type { EstimatedTimelineItem } from './TimelineTypes';
 
 const NIGHT_BEGIN_OFFSET = 22 * 60;
 const NEXTDAY_NIGHT_BEGIN_OFFSET = 24 * 60;
@@ -57,13 +58,11 @@ export type TimeSpanStatistics = {
   nightMinutes: number,
   nextdayNightMinutes: number,
   restMinutes: number,
-  workingStart: Date,
-  workingEnd: Date,
+  workingStart: Date | undefined,
+  workingEnd: Date | undefined,
 };
 
-export function aggregateTimeSpans(timeSpans: TimeSpan[]): TimeSpanStatistics | undefined {
-  if (timeSpans.length === 0) return undefined;
-
+export function aggregateTimeSpans(timeSpans: TimeSpan[]): TimeSpanStatistics {
   const sortedTimeSpans = [...timeSpans].sort((a, b) => a.startMinOffset - b.startMinOffset);
   const restMinutes = calcRestMinSum(sortedTimeSpans);
   const workingMinutes = sortedTimeSpans.reduce((acc, timeSpan) => acc + timeSpan.durationMinutes(), 0);
@@ -77,7 +76,29 @@ export function aggregateTimeSpans(timeSpans: TimeSpan[]): TimeSpanStatistics | 
     nightMinutes,
     nextdayNightMinutes,
     restMinutes,
-    workingStart: sortedTimeSpans[0].startDate,
-    workingEnd: sortedTimeSpans[sortedTimeSpans.length - 1].endDate,
+    workingStart: timeSpans.length === 0 ? undefined : sortedTimeSpans[0].startDate,
+    workingEnd: timeSpans.length === 0 ? undefined : sortedTimeSpans[sortedTimeSpans.length - 1].endDate,
   };
+}
+
+export function calcStatistics(estimatedTimelineItems: EstimatedTimelineItem[], checkedArray: boolean[]): TimeSpanStatistics {
+  const timeSpans = estimatedTimelineItems.map((item) => new TimeSpan(item.startDateText, item.endDateText));
+  const filtered = timeSpans.filter((_, index) => checkedArray[index]);
+  return aggregateTimeSpans(filtered);
+}
+
+export function formatMinutes(minutes: number) {
+  const h = Math.floor(minutes / 60);
+  const m = minutes % 60;
+  const mstr = `00${m}`.slice(-2)
+  return `${h.toString()}:${mstr}`;
+}
+
+export function formatTime(date: Date | undefined) {
+  if (date == null) return '';
+
+  let h = date.getHours();
+  const m = date.getMinutes();
+  if (h < 5) h += 24;
+  return `${h}:${`00${m}`.slice(-2)}`;
 }

@@ -1,6 +1,8 @@
 import * as React from 'react';
 import type { ExtractedTimelineItem } from '../../logic/TimelineTypes';
 import { findSelectedItem } from '../../logic/TimelineData';
+import { calcStatistics } from '../../logic/WorkingTime';
+import { fillStatistics } from '../../logic/Filler';;
 import Timelines from '../presentation/Timelines';
 
 type Props = {
@@ -26,6 +28,13 @@ const FixerDialog = ({ timelineItems, onClose }: Props) => {
   const onCheckedChanged = (index: number, checked: boolean) => {
     setCheckedStates((prev) => prev.map((value, i) => i === index ? checked: value));
   };
+  const onFill = () => {
+    const selectedItem = findSelectedItem(timelineItems, selectedDate);
+    if (selectedItem) {
+      const statistics = calcStatistics(selectedItem.items, checkedStates);
+      fillStatistics(statistics);
+    }
+  };
   const props = {
     timelineItems,
     selectedDate,
@@ -33,6 +42,7 @@ const FixerDialog = ({ timelineItems, onClose }: Props) => {
     onClose,
     onDateSelected,
     onCheckedChanged,
+    onFill,
   };
   return (
     <Timelines {...props} />
