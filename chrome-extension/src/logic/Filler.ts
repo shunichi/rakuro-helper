@@ -11,7 +11,7 @@ function fillInput(selector: string, value: string) {
 export function fillStatistics(statistics: TimeSpanStatistics) {
   fillInput('[name="time_card[actual_worktime_1_daytime_minutes_text]"]', formatMinutes(statistics.dayMinutes)); // 日中
   fillInput('[name="time_card[actual_worktime_1_night_minutes_text]"]', formatMinutes(statistics.nightMinutes)); // 深夜
-  fillInput('[name="time_card[actual_worktime_2_daytime_minutes_text]"]', ''); // 翌 日中
+  fillInput('[name="time_card[actual_worktime_2_daytime_minutes_text]"]', '0:00'); // 翌 日中
   fillInput('[name="time_card[actual_worktime_2_night_minutes_text]"]', formatMinutes(statistics.nextdayNightMinutes)); // 翌 深夜
   fillInput('[name="time_card[start_at_text]"]', formatTime(statistics.workingStart)); // 始業
   fillInput('[name="time_card[end_at_text]"]', formatTime(statistics.workingEnd)); // 終業
