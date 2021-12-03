@@ -1,8 +1,8 @@
 import * as React from 'react';
 import * as ReactDOM from 'react-dom';
-import { ExtractedTimelineItem, TimelineData } from './timeline_types';
-import { extractTimeline } from "./exractor";
-import Timelines from './Timelines';
+import { ExtractedTimelineItem, TimelineData } from './logic/TimelineTypes';
+import { extractTimeline } from "./logic/Exractor";
+import Timelines from './components/presentation/Timelines';
 
 function rootElement(): HTMLElement {
   const root = document.getElementById("rakuro-helper-root")

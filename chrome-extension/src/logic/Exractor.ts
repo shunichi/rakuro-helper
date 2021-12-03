@@ -1,4 +1,4 @@
-import { ExtractedTimelineItem, ItemsByDate } from './timeline_types';
+import { ExtractedTimelineItem, ItemsByDate } from './TimelineTypes';
 
 export function extractTimeline(): ExtractedTimelineItem[] {
   const cal = document.querySelector<HTMLElement>('app-work-calendar');

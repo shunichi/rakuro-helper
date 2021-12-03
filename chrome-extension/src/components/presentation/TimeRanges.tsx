@@ -1,8 +1,8 @@
 import * as React from 'react';
-import { ExtractedTimelineItem, EstimatedTimelineItem } from './timeline_types';
+import { ExtractedTimelineItem, EstimatedTimelineItem } from '../../logic/TimelineTypes';
 import { parseISO, format } from 'date-fns';
-import { TimeSpan, aggregateTimeSpans } from './WorkingTime';
-import type { TimeSpanStatistics } from './WorkingTime';
+import { TimeSpan, aggregateTimeSpans } from '../../logic/WorkingTime';
+import type { TimeSpanStatistics } from '../../logic/WorkingTime';
 
 type Props = {
   item: ExtractedTimelineItem,

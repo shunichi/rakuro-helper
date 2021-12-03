@@ -1,16 +1,11 @@
-
 {
   "short_name": "Rakuro Helper",
   "name": "Fix Rakuro Time",
   "version": "1.0.0",
   "manifest_version": 2,
-  "permissions": [
-    "storage",
-    "activeTab",
-    "https://www.raku-ro.com/*"
-  ],
+  "permissions": ["storage", "activeTab", "https://www.raku-ro.com/*"],
   "background": {
-    "scripts": ["background.ts"],
+    "scripts": ["Background.ts"],
     "persistent": false
   },
   "browser_action": {
@@ -26,7 +21,7 @@
     {
       "matches": ["https://www.raku-ro.com/*"],
       "css": ["./content-script.css"],
-      "js": ["./content-script.tsx"]
+      "js": ["./ContentScript.tsx"]
     }
   ],
   "icons": {

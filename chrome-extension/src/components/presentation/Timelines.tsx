@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { ExtractedTimelineItem } from './timeline_types';
+import { ExtractedTimelineItem } from '../../logic/TimelineTypes';
 import TimeRanges from './TimeRanges';
 
 type Props = {
