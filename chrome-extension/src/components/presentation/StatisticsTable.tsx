@@ -4,12 +4,10 @@ import { formatMinutes, formatTime } from '../../logic/WorkingTime';
 
 type Props = {
   statistics: TimeSpanStatistics,
-  onFill: () => void,
 };
 
-const StatisticsTable = ({ statistics, onFill }: Props) => {
+const StatisticsTable = ({ statistics }: Props) => {
   return <div>
-    <button onClick={onFill} style={{ marginBottom: '12px'}}>入力</button>
     <table className="rakuro-helper-table">
       <tbody>
         <tr>

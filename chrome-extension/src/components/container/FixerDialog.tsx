@@ -58,6 +58,16 @@ const FixerDialog = ({ timelineItems, onClose }: Props) => {
       fillStatistics(statistics);
     }
   };
+  const onToggleAll = () =>
+  {
+    setCheckedStates((prev) => {
+      if (prev.some(Boolean)) {
+        return Array(prev.length).fill(false);
+      } else {
+        return Array(prev.length).fill(true);
+      }
+    })
+  };
   const props = {
     timelineItems,
     selectedDate,
@@ -67,6 +77,7 @@ const FixerDialog = ({ timelineItems, onClose }: Props) => {
     onCheckedChanged,
     onFill,
     onDateSync,
+    onToggleAll,
   };
   return (
     <Timelines {...props} />

@@ -31,13 +31,18 @@ type ModalBodyProps = {
   checkedStates: boolean[],
   onCheckedChanged: (index: number, checked: boolean) => void,
   onFill: () => void,
+  onToggleAll: () => void,
 };
 
-const ModalBody = ({ statistics, selectedItem, checkedStates, onCheckedChanged, onFill }: ModalBodyProps) => {
+const ModalBody = ({ statistics, selectedItem, checkedStates, onCheckedChanged, onFill, onToggleAll }: ModalBodyProps) => {
   return <div className="rakuro-helper-modal-body">
     <div className="rakuro-helper-scroll-container">
       <div className="rakuro-helper-statistics">
-        {statistics && <StatisticsTable statistics={statistics} onFill={onFill} /> }
+        <div style={{ marginBottom: '12px'}}>
+          <button onClick={onFill} >入力</button>
+          <button onClick={onToggleAll} style={{ marginLeft: '8px' }} >トグル</button>
+        </div>
+        {statistics && <StatisticsTable statistics={statistics} /> }
       </div>
       {selectedItem && <TimeRanges item={selectedItem} key={selectedItem.date} checkedStates={checkedStates} onCheckedChanged={onCheckedChanged} />}
     </div>
@@ -51,11 +56,12 @@ type Props = {
   onClose: () => void,
   onDateSelected: (date: string | null) => void,
   onCheckedChanged: (index: number, checked: boolean) => void,
+  onToggleAll: () => void,
   onFill: () => void,
   onDateSync: () => void,
 };
 
-const Timelines = ({ timelineItems, selectedDate, checkedStates, onClose, onDateSelected, onCheckedChanged, onFill, onDateSync }: Props) => {
+const Timelines = ({ timelineItems, selectedDate, checkedStates, onClose, onDateSelected, onCheckedChanged, onToggleAll, onFill, onDateSync }: Props) => {
   const [collapsed, setCollapsed] = React.useState(false);
 
   if (timelineItems.length === 0) {
@@ -78,7 +84,17 @@ const Timelines = ({ timelineItems, selectedDate, checkedStates, onClose, onDate
     </div>
     { !collapsed && <div className="rakuro-helper-modal-header-line"></div> }
     { !collapsed && <ToolBar {...toolBarProps} />}
-    { !collapsed && statistics && <ModalBody statistics={statistics} selectedItem={selectedItem} checkedStates={checkedStates} onCheckedChanged={onCheckedChanged} onFill={onFill} />}
+    {
+      !collapsed && statistics &&
+      <ModalBody
+        statistics={statistics}
+        selectedItem={selectedItem}
+        checkedStates={checkedStates}
+        onCheckedChanged={onCheckedChanged}
+        onFill={onFill}
+        onToggleAll={onToggleAll}
+      />
+    }
   </div>;
 }
 export default Timelines;
