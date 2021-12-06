@@ -1,4 +1,5 @@
 import * as React from 'react';
+import { useDrag } from '../../logic/useDrag';
 import DialogHeader from './DialogHeader';
 import DialogBody from './DialogBody';
 import type { ExtractedTimelineItem } from '../../logic/TimelineTypes';
@@ -17,9 +18,11 @@ type Props = {
 
 const Dialog = (props: Props) => {
   const [collapsed, setCollapsed] = React.useState(false);
+  const dialogRef = React.useRef<HTMLDivElement>(null);
+  const { onPointerDown, onPointerUp } = useDrag(dialogRef);
 
-  return <div className="rakuro-helper-dialog">
-    <DialogHeader onClose={props.onClose} onToggleCollapsed={() => setCollapsed((v) => !v)} />
+  return <div ref={dialogRef} className="rakuro-helper-dialog">
+    <DialogHeader onClose={props.onClose} onToggleCollapsed={() => setCollapsed((v) => !v)} onPointerDown={onPointerDown} onPointerUp={onPointerUp} />
     {
       !collapsed &&
       <DialogBody

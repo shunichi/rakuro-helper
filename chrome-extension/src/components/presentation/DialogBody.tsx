@@ -35,7 +35,7 @@ type ModalBodyProps = {
 };
 
 const ModalBody = ({ statistics, selectedItem, checkedStates, onCheckedChanged, onFill, onToggleAll }: ModalBodyProps) => {
-  return <div className="rakuro-helper-modal-body">
+  return <div className="rakuro-helper-dialog-body">
     <div className="rakuro-helper-scroll-container">
       <div className="rakuro-helper-statistics">
         <div style={{ marginBottom: '12px'}}>
@@ -74,8 +74,7 @@ const DialogBody = ({ timelineItems, selectedDate, checkedStates,onDateSelected,
     onDateSelected,
     onDateSync,
   };
-  return <div>
-    <div className="rakuro-helper-modal-header-line"></div>
+  return <div className="rakuro-helper-dialog-body-frame">
     <ToolBar {...toolBarProps} />
     {
       statistics &&
