@@ -1,6 +1,16 @@
 誤って労働時間が記録されてしまったのを修正したいとき、手で計算するのは大変なので、なんとかするスクリプトです。
 
-## 使い方
+## Chrome Extension
+
+```
+cd chrome-extension
+npm install
+npm run build
+```
+
+chrome-extension/dist/webext-prod に出来上がるので Chrome Extension 管理画面の Load unpacked でロードする。
+
+## ruby版の使い方
 1. ラクローの客観的記録をブラウザからテキストファイルにコピー
 2. 実態に合わせてコピーした記録を修正
 3. ruby rakuro_calc.rb TEXTFILE
