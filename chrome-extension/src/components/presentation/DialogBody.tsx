@@ -21,7 +21,7 @@ const ToolBar = ({ timelineItems, selectedDate, onDateSelected, onDateSync }: To
           </option>
       )}
     </select>
-    <button className="rakuro-helper-input-button" onClick={onDateSync}>モーダルの日付</button>
+    <button className="rakuro-helper-input-button" onClick={onDateSync}>編集中の日を選択</button>
   </div>;
 }
 
