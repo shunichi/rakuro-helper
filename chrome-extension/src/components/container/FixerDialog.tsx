@@ -3,7 +3,7 @@ import type { ExtractedTimelineItem } from '../../logic/TimelineTypes';
 import { findSelectedItem } from '../../logic/TimelineData';
 import { calcStatistics } from '../../logic/WorkingTime';
 import { fillStatistics } from '../../logic/Filler';;
-import Timelines from '../presentation/Timelines';
+import Dialog from '../presentation/Dialog';
 
 type Props = {
   timelineItems: ExtractedTimelineItem[],
@@ -80,7 +80,7 @@ const FixerDialog = ({ timelineItems, onClose }: Props) => {
     onToggleAll,
   };
   return (
-    <Timelines {...props} />
+    <Dialog {...props} />
   );
 }
 

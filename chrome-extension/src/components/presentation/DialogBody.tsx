@@ -53,7 +53,6 @@ type Props = {
   timelineItems: ExtractedTimelineItem[],
   selectedDate: string | null,
   checkedStates: boolean[],
-  onClose: () => void,
   onDateSelected: (date: string | null) => void,
   onCheckedChanged: (index: number, checked: boolean) => void,
   onToggleAll: () => void,
@@ -61,11 +60,9 @@ type Props = {
   onDateSync: () => void,
 };
 
-const Timelines = ({ timelineItems, selectedDate, checkedStates, onClose, onDateSelected, onCheckedChanged, onToggleAll, onFill, onDateSync }: Props) => {
-  const [collapsed, setCollapsed] = React.useState(false);
-
+const DialogBody = ({ timelineItems, selectedDate, checkedStates,onDateSelected, onCheckedChanged, onToggleAll, onFill, onDateSync }: Props) => {
   if (timelineItems.length === 0) {
-    return <div>データがないよ</div>;
+    return <div>データがありません。</div>;
   }
 
   const selectedItem = findSelectedItem(timelineItems, selectedDate);
@@ -78,14 +75,10 @@ const Timelines = ({ timelineItems, selectedDate, checkedStates, onClose, onDate
     onDateSync,
   };
   return <div>
-    <div className="rakuro-helper-modal-header">
-      <a className="rakuro-helper-close-button" onClick={(e) => {e.preventDefault(); onClose()}}>✕</a>
-      <a className="rakuro-helper-close-button" onClick={(e) => {e.preventDefault(); setCollapsed((v) => !v)}}>-</a>
-    </div>
-    { !collapsed && <div className="rakuro-helper-modal-header-line"></div> }
-    { !collapsed && <ToolBar {...toolBarProps} />}
+    <div className="rakuro-helper-modal-header-line"></div>
+    <ToolBar {...toolBarProps} />
     {
-      !collapsed && statistics &&
+      statistics &&
       <ModalBody
         statistics={statistics}
         selectedItem={selectedItem}
@@ -96,5 +89,6 @@ const Timelines = ({ timelineItems, selectedDate, checkedStates, onClose, onDate
       />
     }
   </div>;
-}
-export default Timelines;
+};
+
+export default DialogBody;
