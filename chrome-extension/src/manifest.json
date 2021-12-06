@@ -1,6 +1,6 @@
 {
   "short_name": "Rakuro Helper",
-  "name": "Fix Rakuro Time",
+  "name": "Rakuro Helper",
   "version": "1.0.0",
   "manifest_version": 2,
   "permissions": ["storage", "activeTab", "https://www.raku-ro.com/*"],
