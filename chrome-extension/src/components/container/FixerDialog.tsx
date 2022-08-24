@@ -15,19 +15,23 @@ const initialCheckedStates = (date: string | null, length: number): boolean[] =>
   return Array(length).fill(true);
 };
 
-function padZero(s: string){
+function padZero(s: string) {
   return `00${s}`.slice(-2);
 }
 
 const getModalDate = (year: string) => {
-  const text = document.querySelector<HTMLElement>('.modal-title')?.innerText;
-  if (text == null) return undefined;
+  const elements = document.querySelectorAll<HTMLElement>('.modal-title')
+  for (let elem of elements) {
+    const text = elem.innerText;
+    if (text == null) continue;
 
-  const m = /(\d+)\/(\d+) 勤怠報告/.exec(text);
-  if (m == null) return undefined;
-  const month = padZero(m[1]);
-  const day = padZero(m[2]);
-  return `${year}-${month}-${day}`
+    const m = /(\d+)\/(\d+) 勤怠報告/.exec(text);
+    if (m == null) continue;
+    const month = padZero(m[1]);
+    const day = padZero(m[2]);
+    return `${year}-${month}-${day}`
+  }
+  return undefined;
 }
 
 const FixerDialog = ({ timelineItems, onClose }: Props) => {
@@ -49,7 +53,7 @@ const FixerDialog = ({ timelineItems, onClose }: Props) => {
     onDateSelected(date);
   }
   const onCheckedChanged = (index: number, checked: boolean) => {
-    setCheckedStates((prev) => prev.map((value, i) => i === index ? checked: value));
+    setCheckedStates((prev) => prev.map((value, i) => i === index ? checked : value));
   };
   const onFill = () => {
     const selectedItem = findSelectedItem(timelineItems, selectedDate);
@@ -58,8 +62,7 @@ const FixerDialog = ({ timelineItems, onClose }: Props) => {
       fillStatistics(statistics);
     }
   };
-  const onToggleAll = () =>
-  {
+  const onToggleAll = () => {
     setCheckedStates((prev) => {
       if (prev.some(Boolean)) {
         return Array(prev.length).fill(false);
