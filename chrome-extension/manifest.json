@@ -1,0 +1,41 @@
+{
+  "short_name": "Rakuro Helper",
+  "name": "Rakuro Helper",
+  "version": "1.1.0",
+  "manifest_version": 3,
+  "permissions": [
+    "storage",
+    "activeTab"
+  ],
+  "host_permissions": [
+    "https://www.raku-ro.com/*"
+  ],
+  "background": {
+    "service_worker": "src/Background.ts"
+  },
+  "action": {
+    "default_title": "Rakuro Helper",
+    "default_icon": {
+      "16": "images/rakuro-helper-16.png",
+      "32": "images/rakuro-helper-32.png",
+      "64": "images/rakuro-helper-64.png",
+      "128": "images/rakuro-helper-128.png"
+    }
+  },
+  "content_scripts": [
+    {
+      "matches": [
+        "https://www.raku-ro.com/*"
+      ],
+      "js": [
+        "src/ContentScript.tsx"
+      ]
+    }
+  ],
+  "icons": {
+    "16": "images/rakuro-helper-16.png",
+    "32": "images/rakuro-helper-32.png",
+    "64": "images/rakuro-helper-64.png",
+    "128": "images/rakuro-helper-128.png"
+  }
+}

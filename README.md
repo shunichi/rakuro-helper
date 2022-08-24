@@ -8,7 +8,7 @@ npm install
 npm run build
 ```
 
-chrome-extension/dist/webext-prod に出来上がるので Chrome Extension 管理画面の Load unpacked でロードする。
+chrome-extension/dist に出来上がるので Chrome Extension 管理画面の Load unpacked でロードする。
 
 ## ruby版の使い方
 1. ラクローの客観的記録をブラウザからテキストファイルにコピー
